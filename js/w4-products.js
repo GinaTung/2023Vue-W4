@@ -1,4 +1,6 @@
 import { createApp } from "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.29/vue.esm-browser.min.js";
+import pagination from "./pagination.js";
+
 const site = "https://vue3-course-api.hexschool.io/v2";
 const api_path = "yuling202202";
 
@@ -13,6 +15,7 @@ const app = createApp({
         imagesUrl: [],
       },
       isNew: false, //確認是編輯或新增所使用的
+      page: {},
     };
   },
   methods: {
@@ -34,13 +37,17 @@ const app = createApp({
           window.location = "login.html";
         });
     },
-    getProducts() {
-      const url = `${site}/api/${api_path}/admin/products/all`;
+    getProducts(page = 1) {
+      //預設參數page=1
+      // 刪除all會有分頁資料API位址
+      // 如果要自己設定每頁顯示多少筆要將位址改成有all的API位址
+      const url = `${site}/api/${api_path}/admin/products/?page=${page}`;
       axios
         .get(url)
         .then((res) => {
           console.log(res);
           this.products = res.data.products;
+          this.page = res.data.pagination;
         })
         .catch((err) => {
           console.log(err.data.message);
@@ -105,6 +112,7 @@ const app = createApp({
         });
     },
   },
+  components: { pagination },
   mounted() {
     const cookieValue = document.cookie
       .split("; ")
@@ -125,4 +133,13 @@ const app = createApp({
     this.checkLogin();
   },
 });
+app.component("product-modal", {
+  props: ["tempProduct", "updateProduct"],
+  // template-product-modal有中間橫槓會出現錯誤
+  template: "#templateForProductModal",
+});
 app.mount("#app");
+// 區域註冊
+// app.components("pagination", pagination);
+
+// component API
