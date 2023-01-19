@@ -16,6 +16,24 @@ const app = createApp({
     };
   },
   methods: {
+    // 進入頁面時驗證一次
+    checkLogin() {
+      //console.log(`${site}/api/user/check`);
+      const url = `${site}/api/user/check`;
+      axios
+        .post(url)
+        .then((res) => {
+          //console.log(res);
+          // 取得產品列表
+          this.getProducts();
+        })
+        .catch((err) => {
+          // console.log(err);
+          console.log(err);
+          alert(`${err.data.message}`);
+          window.location = "login.html";
+        });
+    },
     getProducts() {
       const url = `${site}/api/${api_path}/admin/products/all`;
       axios
@@ -25,13 +43,14 @@ const app = createApp({
           this.products = res.data.products;
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.data.message);
         });
     },
     // 建立產品按鈕點選後會打開modal
     openModal(status, product) {
       //productModal.show();
       console.log(status);
+
       if (status === "create") {
         productModal.show();
         this.isNew = true;
@@ -69,7 +88,8 @@ const app = createApp({
           productModal.hide();
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.data.message);
+          alert(`${err.data.message}，必填欄位請填寫資料`);
         });
     },
     deleteProduct() {
@@ -102,6 +122,7 @@ const app = createApp({
     productModal = new bootstrap.Modal("#productModal");
     //productModal.show(); //確保他會動
     delProductModal = new bootstrap.Modal("#delProductModal");
+    this.checkLogin();
   },
 });
 app.mount("#app");

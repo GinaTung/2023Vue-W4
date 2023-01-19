@@ -29,7 +29,7 @@ const app = createApp({
           console.log(expired, token);
           document.cookie = `hexToken=${token}; expeires=${new Date(expired)};`;
           // 轉址
-          window.location = "w2-products.html";
+          window.location = "w4-products.html";
         })
         // 切換network->Ferch/XHR:可看到錯誤回傳
         .catch((err) => {
