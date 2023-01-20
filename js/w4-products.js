@@ -8,6 +8,7 @@ let productModal = {};
 let delProductModal = {};
 
 const app = createApp({
+  el: "#app",
   data() {
     return {
       products: [],
@@ -16,6 +17,7 @@ const app = createApp({
       },
       isNew: false, //確認是編輯或新增所使用的
       page: {},
+      formData: new FormData(), //因為我這邊沒有使用form，所以就自行new了一個FormData
     };
   },
   methods: {
@@ -111,6 +113,24 @@ const app = createApp({
           console.log(err);
         });
     },
+    fileChange(e) {
+      for (var i = 0; i < e.target.files.length; i++) {
+        this.formData.append("file", e.target.files[i]); //用迴圈抓出多少筆再append回來
+      }
+    },
+    upload() {
+      axios
+        .post(`${site}/api/${api_path}/admin/upload`, this.formData)
+        .then((res) => {
+          this.tempProduct = {
+            imagesUrl: [],
+          };
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
   },
   components: { pagination },
   mounted() {
@@ -134,7 +154,7 @@ const app = createApp({
   },
 });
 app.component("product-modal", {
-  props: ["tempProduct", "updateProduct"],
+  props: ["tempProduct", "updateProduct", "isNew", "upload", "fileChange"],
   // template-product-modal有中間橫槓會出現錯誤
   template: "#templateForProductModal",
 });

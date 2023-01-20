@@ -137,6 +137,8 @@
                                     <input type="text" class=" form-control"
                                         v-model="tempProduct.imagesUrl[key]">
                                     <img :src="tempProduct.imagesUrl[key]" alt="" class="img-fluid mb-1">
+                                    <input class="form-control" type="file" @change="fileChange">
+                                    <a class="btn btn-outline-primary"  type="button" @click="upload">upload</a>
                                 </template>
                                 <!-- 判斷新增、刪除出現的時機 -->
                                 <!-- if新增:欄位是有填寫資料時或當如果是空的時候 -->
@@ -151,7 +153,7 @@
                                     @click="tempProduct.imagesUrl.pop()">
                                     刪除圖片
                                 </button>
-                                <input type="file" class="form-control" id="file" placeholder="請輸入圖片連結" />
+                                <!-- <input type="file" class="form-control" id="file" placeholder="請輸入圖片連結" /> -->
                             </div>
                         </div>
                     </div>
