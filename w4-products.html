@@ -77,7 +77,7 @@
         <div id="productModal" ref="productModal" class="modal fade" tabindex="-1" aria-labelledby="productModalLabel"
             aria-hidden="true">
             <!-- HTML模式下，可能會被判斷沒有結尾 -->
-            <product-modal :temp-product="tempProduct" :update-product="updateProduct"></product-modal>
+            <product-modal :temp-product="tempProduct" :update-product="updateProduct" :is-new="isNew"></product-modal>
         </div>
         <div id="delProductModal" ref="delProductModal" class="modal fade" tabindex="-1"
             aria-labelledby="delProductModalLabel" aria-hidden="true">
@@ -137,8 +137,6 @@
                                     <input type="text" class=" form-control"
                                         v-model="tempProduct.imagesUrl[key]">
                                     <img :src="tempProduct.imagesUrl[key]" alt="" class="img-fluid mb-1">
-                                    <input class="form-control" type="file" @change="fileChange">
-                                    <a class="btn btn-outline-primary"  type="button" @click="upload">upload</a>
                                 </template>
                                 <!-- 判斷新增、刪除出現的時機 -->
                                 <!-- if新增:欄位是有填寫資料時或當如果是空的時候 -->
