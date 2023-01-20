@@ -108,10 +108,11 @@
     </div>
     <script type="text/x-template" id="templateForProductModal">
     <div class="modal-dialog modal-xl">
-        <div class="modal-content border-0">
-            <div class="modal-header bg-dark text-white">
+        <div class="modal-content border-0" >
+            <div class="modal-header bg-dark text-white" >
                 <h5 id="productModalLabel" class="modal-title">
-                    <span>新增產品</span>
+                    <span v-if="isNew">新增產品</span>
+                    <span v-else>編輯產品</span>
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -150,6 +151,7 @@
                                     @click="tempProduct.imagesUrl.pop()">
                                     刪除圖片
                                 </button>
+                                <input type="file" class="form-control" id="file" placeholder="請輸入圖片連結" />
                             </div>
                         </div>
                     </div>
@@ -220,6 +222,7 @@
         </div>
     </div>
     </script>
+
     <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js'
         integrity='sha512-Xk3wWei2TGrsh9kDSBKUMIjw/86sLUvhtnv9f7fOuIwhhiUTKz8szkWkzHthrM5Bb3Bu9idSzkxOrkzhcneuiw=='
         crossorigin='anonymous'></script>

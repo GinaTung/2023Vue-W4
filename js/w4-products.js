@@ -139,6 +139,8 @@ app.component("product-modal", {
   template: "#templateForProductModal",
 });
 app.mount("#app");
+// 指向input欄位，將檔案丟到input時會觸發upload事件
+
 // 區域註冊
 // app.components("pagination", pagination);
 
